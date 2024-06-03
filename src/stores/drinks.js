@@ -24,12 +24,12 @@ export const useDrinksStore = defineStore('drinks', () => {
             });
     });
 
-    async function obtainRecipes () {
+    async function setRecipes () {
         const { data: { drinks }} = await APIConsumer.searchRecipes(search);
         recipes.value = drinks;
     }
 
-    async function obtainRecipeById (id) {
+    async function setRecipeById (id) {
         const { data: { drinks }} = await APIConsumer.searchRecipeById(id);
         recipe.value = drinks[0];
 
@@ -41,7 +41,7 @@ export const useDrinksStore = defineStore('drinks', () => {
         search,
         recipes,
         recipe,
-        obtainRecipeById,
-        obtainRecipes
+        setRecipeById,
+        setRecipes
     }
 });

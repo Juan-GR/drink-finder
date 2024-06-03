@@ -11,7 +11,7 @@
   });
 
   const handleSubmit = () => {
-    drinksStore.obtainRecipes();
+    drinksStore.setRecipes();
   }
 </script>
 
@@ -30,17 +30,17 @@
             />
           </RouterLink>
         </div>
-        <nav class="flex gap-4">
+        <nav class="flex gap-4 text-white">
           <RouterLink
             :to="{ name: 'home' }"
-            class="text-white font-bold uppercase"
+            class="font-bold uppercase"
             active-class="text-orange-500"
           >
             Inicio
           </RouterLink>
           <RouterLink
               :to="{ name: 'favourites' }"
-              class="text-white font-bold uppercase"
+              class="font-bold uppercase"
               active-class="text-orange-500"
           >
             Favoritos

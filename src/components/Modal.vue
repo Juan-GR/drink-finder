@@ -67,7 +67,7 @@
                   class="w-full rounded bg-orange-500 p-3 font-bold uppercase text-white shadow hover:bg-orange-700"
                   @click="favouritesStore.handleClickFavourite()"
                 >
-                  Agregar a favoritos
+                  {{ modalStore.textButton }}
                 </button>
               </div>
             </DialogPanel>
