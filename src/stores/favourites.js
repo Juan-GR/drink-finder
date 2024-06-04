@@ -1,16 +1,20 @@
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useDrinksStore } from '../stores/drinks';
 import { useModalStore } from '../stores/modal';
+import { useNotificationsStore } from '../stores/notifications.js';
 
 export const useFavouritesStore = defineStore('favourites', () => {
     const drinksStore = useDrinksStore();
     const modalStore = useModalStore();
+    const notificationsStore = useNotificationsStore();
     const favourites = ref([]);
 
     onMounted(() => {
         favourites.value = JSON.parse(localStorage.getItem('favourites')) || [];
     });
+
+    const noFavourites = computed(() => favourites.value.length === 0);
 
     watch(favourites, () => {
         setFavouritesLocalStorage();
@@ -26,6 +30,8 @@ export const useFavouritesStore = defineStore('favourites', () => {
 
     function addFavourite () {
         favourites.value.push(drinksStore.recipe);
+        notificationsStore.show = true;
+        notificationsStore.text = 'Añadido a favoritos';
     }
 
     function setFavouritesLocalStorage (){
@@ -39,11 +45,14 @@ export const useFavouritesStore = defineStore('favourites', () => {
 
     function removeFavourite () {
         favourites.value = favourites.value.filter(favourite => favourite.idDrink !== drinksStore.recipe.idDrink);
+        notificationsStore.show = true;
+        notificationsStore.text = 'Eliminado de favoritos';
     }
 
     return {
         favourites,
         handleClickFavourite,
-        existsInFavourites
+        existsInFavourites,
+        noFavourites
     }
 })

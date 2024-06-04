@@ -1,4 +1,4 @@
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { APIConsumer } from '../services/APIConsumer';
 import { useModalStore } from '../stores/modal';
@@ -12,6 +12,8 @@ export const useDrinksStore = defineStore('drinks', () => {
 
     const recipes = ref([]);
     const recipe = ref({});
+
+    const noRecipes = computed(() => recipes.value.length === 0);
 
     onMounted(() => {
         APIConsumer.getCategories()
@@ -41,6 +43,7 @@ export const useDrinksStore = defineStore('drinks', () => {
         search,
         recipes,
         recipe,
+        noRecipes,
         setRecipeById,
         setRecipes
     }
